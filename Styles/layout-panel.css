@@ -1,0 +1,58 @@
+/* Main Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: calc(100vh - var(--header-h));
+  margin-top: var(--header-h);
+  padding-bottom: 60px;
+}
+
+/* Panels */
+.panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  margin-top: 14px;
+}
+
+.panel--menu {
+  border-right: 1px solid #008D43;
+}
+
+.panel--cart {
+  background: var(--surface);
+}
+
+/* Panel Header */
+.panel__header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 12px;
+  background: transparent;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+}
+
+.panel__title1 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+}
+
+.panel__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  margin-left: 114px;
+}
+
+
+
+
+

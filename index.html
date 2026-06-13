@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subway Kiosk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="Styles/global-header.css"/>
+  <link rel="stylesheet" href="Styles/layout-panel.css" />
+  <link rel="stylesheet" href="Styles/splash.css" />
+  <link rel="stylesheet" href="Styles/inventory.css"/>
+  <link rel="stylesheet" href="Styles/menu-card-overlay.css"/>
+  <link rel="stylesheet" href="Styles/menu.css"/>
+  <link rel="stylesheet" href="Styles/category-tabs.css"/>
+  <link rel="stylesheet" href="Styles/cart.css"/>
+  <link rel="stylesheet" href="Styles/checkout.css"/>
+  <link rel="stylesheet" href="Styles/pay-numpad.css"/>
+  <link rel="stylesheet" href="Styles/receipt.css"/>
+   
+   
+</head>
+<body>
+
+  <!-- SPLASH -->
+  <div class="splash" id="splash-screen">
+    <div class="splash__carousel" id="splash-carousel">
+      <div class="splash__slide splash__slide--1" style="background-image: url('images/splash/splash1.jpg');"></div>
+      <div class="splash__slide splash__slide--2" style="background-image: url('images/splash/splash2.jpg');"></div>
+      <div class="splash__slide splash__slide--3" style="background-image: url('images/splash/splash3.jpg');"></div>
+      <div class="splash__slide splash__slide--3" style="background-image: url('images/splash/splash4.jpg');"></div>
+    </div>
+    <div class="splash__scrim"></div>
+    <div class="splash__content">
+      <img src="images/Subway-logo.png" alt="Subway" class="splash__logo" />
+      <div class="splash__tap-area" id="splash-tap">
+        <div class="splash__tap-ring"></div>
+        <span class="splash__tap-label">Welcome! Tap anywhere to start!</span>
+      </div>
+    </div>
+    <div class="splash__dots" id="splash-dots"></div>
+  </div>
+
+  <!-- KIOSK APP -->
+  <div id="kiosk-app" style="display:none;">
+
+    <header class="header">
+      <div class="header__logo">
+        <span class="header__icon"></span>
+        <div>
+          <h1 class="header__title"><img src="images/Subway-logo.png" class="img-head-logo"></h1>
+          <p class="header__tagline"></p>
+        </div>
+      </div>
+      <div class="header__time" id="live-time"></div>
+    </header>
+
+    <main class="layout">
+
+      <!-- MENU VIEW -->
+      <section class="panel panel--menu" id="view-menu" style="width:100%; border-right:none;">
+        <div class="panel__header">
+          <h2 class="panel__title1">Menu</h2>
+          <div class="category-tabs" id="category-tabs"></div>
+        </div>
+        <div class="menu-grid" id="menu-grid"></div>
+      </section>
+
+      <!-- ORDER VIEW -->
+      <section class="panel panel--cart" id="view-order" style="display:none; width:100%;">
+        <div class="panel__header">
+          <h2 class="panel__title1"></h2>
+        </div>
+
+        <div class="cart-body">
+
+          <!-- VIEW 1: CART ITEMS -->
+          <div id="cart-view">
+            <div class="cart-scroll">
+              <div style="display:flex; justify-content:flex-end; padding: 0 16px 6px;">
+                <button class="btn btn--ghost btn--sm" id="clear-cart-btn" style="display:none;">Clear All</button>
+              </div>
+              <div class="cart-list" id="cart-list">
+                <div class="cart-empty" id="cart-empty">
+                  <span class="cart-empty__icon">🛒</span>
+                  <p>No items yet.<br>Pick something from the menu!</p>
+                </div>
+              </div>
+              <button class="btn btn--checkout" id="proceed-btn" style="display:none;">
+                Proceed to Checkout
+              </button>
+            </div>
+          </div>
+
+          <!-- VIEW 2: PAYMENT -->
+          <div id="payment-view" style="display:none;">
+            <div class="payment-screen">
+
+              <button class="btn btn--ghost btn--sm" id="edit-order-btn" style="margin: 12px 16px 0; display:block;">← Edit Order</button>
+
+              <div class="discount-section" id="discount-section">
+                <label class="discount-label">Discount</label>
+                <div class="discount-options">
+                  <button class="discount-btn" data-type="none" data-pct="0">None</button>
+                  <button class="discount-btn" data-type="senior" data-pct="20">Senior (20%)</button>
+                  <button class="discount-btn" data-type="pwd" data-pct="20">PWD (20%)</button>
+                </div>
+              </div>
+
+              <div class="bill" id="bill">
+                <div class="bill__row"><span>Subtotal</span><span id="bill-subtotal">₱0.00</span></div>
+                <div class="bill__row bill__row--discount" id="discount-row" style="display:none;">
+                  <span id="discount-label-text">Discount</span>
+                  <span id="bill-discount" class="bill__discount">-₱0.00</span>
+                </div>
+                <div class="bill__row"><span>VAT (12%)</span><span id="bill-vat">₱0.00</span></div>
+                <div class="bill__row bill__row--total"><span>Grand Total</span><span id="bill-grand">₱0.00</span></div>
+              </div>
+
+              <div class="payment" id="payment-section">
+                <label class="payment__label" for="payment-input">Cash Payment</label>
+                <div class="payment__input-row">
+                  <span class="payment__peso">₱</span>
+                  <input class="payment__input" id="payment-input" type="number" min="0" placeholder="0.00" />
+                </div>
+                <div class="payment__quick-btns" id="quick-btns"></div>
+                <div class="payment__change" id="change-display" style="display:none;">
+                  Change: <strong id="change-amount">₱0.00</strong>
+                </div>
+                <div class="payment__error" id="payment-error" style="display:none;">
+                  ⚠ Insufficient payment.
+                </div>
+              </div>
+
+              <button class="btn btn--checkout" id="checkout-btn">
+                Place Order & Pay
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- BOTTOM TAB BAR -->
+    <nav style="
+      position: fixed; bottom: 0; left: 0; right: 0; height: 60px;
+      background: #008D43; display: flex; z-index: 100;
+      border-top: 2px solid #008D43;
+    ">
+      <button id="tab-menu" onclick="switchTab('menu')" style="
+        flex: 1; display: flex; flex-direction: column; align-items: center;
+        justify-content: center; gap: 2px; background: rgba(255,255,255,0.15);
+        border: none; border-top: 3px solid #FDBA12; cursor: pointer; color: #fff;
+        font-family: var(--font-body); font-size: 1rem; font-weight: 600;
+      ">Menu</button>
+      <button id="tab-order" onclick="switchTab('order')" style="
+        flex: 1; display: flex; flex-direction: column; align-items: center;
+        justify-content: center; gap: 2px; background: none;
+        border: none; border-top: 3px solid transparent; cursor: pointer; color: rgba(255,255,255,0.75);
+        font-family: var(--font-body); font-size: 1rem; font-weight: 600;
+        position: relative;
+      ">
+        Your Order
+        <span id="cart-badge" style="
+          display: none; position: absolute; top: 6px; right: calc(50% - 56px);
+          background: #fd1212; color: #ffffff; font-size: 0.65rem; font-weight: 700;
+          min-width: 16px; height: 16px; border-radius: 9px;
+          align-items: center; justify-content: center; padding: 0 5px;
+        ">0</span>
+      </button>
+    </nav>
+
+    <!-- ORDER LOADING SCREEN -->
+    <div class="order-loading-overlay" id="order-loading-overlay" style="display:none;">
+      <div class="order-loading-box">
+        <div class="order-loading-spinner"></div>
+        <p class="order-loading-msg" id="order-loading-msg">Thank you for ordering, sending your order into the kitchen!</p>
+      </div>
+    </div>
+
+    <!-- RECEIPT MODAL -->
+    <div class="modal-overlay" id="receipt-modal" style="display:none;">
+      <div class="modal">
+        <div class="receipt" id="receipt-content"></div>
+        <div class="modal__actions">
+          <button class="btn btn--primary" id="new-order-btn">New Order</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/db.js"></script>     
+  <script src="Scripts/app.js"></script>
+  <script src="Scripts/splash.js"></script>
+  <script src="Scripts/admin.js"></script>  
+
+
+</body>
+</html>

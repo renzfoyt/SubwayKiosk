@@ -1,0 +1,101 @@
+/* Numpad */
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 0 16px;
+}
+
+.numpad__btn {
+  padding: 5px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  margin-top: 3px;
+  margin-bottom: 4px;
+  transition: background 0.15s;
+}
+
+.numpad__btn:hover { background: var(--accent); color: #000; }
+
+.numpad__btn--clear {
+  background: #f87171;
+  color: #fff;
+  border-color: #f87171;
+}
+
+.numpad__btn--clear:hover { background: #ef4444; }
+
+.numpad__btn--backspace {
+  background: var(--surface-2);
+  color: #000;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: none;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: #008D43;
+  border: 1px solid #008D43;
+  font-size: 0.75rem;
+}
+
+.btn--ghost:hover {
+  color: var(--red);
+  border-color: var(--red);
+  background: rgba(248,113,113,0.08);
+}
+
+.btn--sm { padding: 4px 10px; font-size: 0.75rem; }
+
+.btn--checkout {
+  display: block;
+  width: calc(100% - 32px);
+  margin: 10px 16px 0;
+  margin-bottom: 14px;
+  padding: 12px;
+  background: var(--accent);
+  color: #000;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  border-radius: var(--radius);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn--checkout:hover { background: var(--accent-light); transform: translateY(-1px); }
+.btn--checkout:active { transform: translateY(0); }
+
+.btn--primary {
+  background: #FDBA12;
+  color: #000;
+  padding: 12px 32px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  border-radius: var(--radius);
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  transition: background 0.15s;
+}
+
+.btn--primary:hover { background: var(--accent-light); }

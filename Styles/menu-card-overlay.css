@@ -1,0 +1,106 @@
+.menu-card__best-seller-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: linear-gradient(135deg, #FDBA12, #f5a623);
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(253,186,18,0.5);
+  letter-spacing: 0.02em;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+@keyframes badge-pop {
+  0%   { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+/* Sold Out Overlay */
+.menu-card__thumb {
+  position: relative;
+}
+
+.menu-card__sold-out-overlay {
+  inset: 0;
+  background: rgba(0, 0, 0, 0.58);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  z-index: 3;
+}
+
+.menu-card__sold-out-overlay span {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  border: 2px solid rgba(255,255,255,0.7);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+/* Sold Out Card */
+.menu-card--sold-out {
+  opacity: 0.40;
+  cursor: not-allowed !important;
+}
+
+.menu-card--sold-out:hover {
+  transform: none !important;
+  border-color: inherit !important;
+}
+
+.menu-card__add--soldout {
+  background: #e0e0e0 !important;
+  color: #999 !important;
+  border-color: #ccc !important;
+  cursor: not-allowed !important;
+  font-style: italic;
+}
+
+/* Stock Pill */
+.stock-pill {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  align-self: center;
+  margin-top: -4px;
+  letter-spacing: 0.02em;
+}
+
+.stock-pill--ok {
+  background: rgba(74, 222, 128, 0.15);
+  color: #16a34a;
+  border: 1px solid rgba(74,222,128,0.4);
+}
+
+.stock-pill--low {
+  background: rgba(251, 191, 36, 0.18);
+  color: #b45309;
+  border: 1px solid rgba(251,191,36,0.5);
+  animation: low-pulse 2s ease-in-out infinite;
+  display: none;
+}
+
+.stock-pill--out {
+  background: rgba(248, 113, 113, 0.15);
+  color: #dc2626;
+  border: 1px solid rgba(248,113,113,0.4);
+  display: none;
+}
+
+@keyframes low-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}

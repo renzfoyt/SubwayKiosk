@@ -1,0 +1,312 @@
+/* Splash overlay */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Carousel */
+.splash__carousel {
+  position: absolute;
+  inset: 0;
+}
+
+.splash__slide {
+  position: absolute;
+  inset: 0;
+  background-color: #004d25;     /* fallback if no image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* Colour-tinted placeholders when no image is set */
+.splash__slide--1 { background-color: #00502b; }
+.splash__slide--2 { background-color: #006b38; }
+.splash__slide--3 { background-color: #003d20; }
+
+.splash__slide--active {
+  opacity: 1;
+}
+
+/* ── Scrim (darkens photo so text is readable) ────────────── */
+.splash__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.3) 60%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Content (logo + tap prompt) */
+.splash__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0 20px;
+  text-align: center;
+  filter: drop-shadow(0 6px 32px rgba(0,0,0,0.95));
+}
+
+.splash__logo {
+  width: 400px;
+  max-width: 70vw;
+  height: auto;
+  filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+}
+
+/* Tap area */
+.splash__tap-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Pulsing ring around the tap prompt */
+.splash__tap-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid rgba(253, 186, 18, 0.85);
+  animation: splash-pulse 2s ease-out infinite;
+  position: relative;
+  margin-bottom: 50px;
+  margin-top: -54px;
+  filter: drop-shadow(0 6px 32px rgba(0,0,0,0.95));
+}
+
+.splash__tap-ring::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: rgba(253, 186, 18, 0.25);
+  animation: splash-pulse-inner 2s ease-out infinite;
+}
+
+@keyframes splash-pulse {
+  0%   { transform: scale(0.95); opacity: 0.9; }
+  50%  { transform: scale(1.08); opacity: 0.6; }
+  100% { transform: scale(0.95); opacity: 0.9; }
+}
+
+@keyframes splash-pulse-inner {
+  0%   { transform: scale(1);    opacity: 0.8; }
+  50%  { transform: scale(1.12); opacity: 0.4; }
+  100% { transform: scale(1);    opacity: 0.8; }
+}
+
+.splash__tap-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+  animation: splash-blink 2.4s ease-in-out infinite;
+}
+
+@keyframes splash-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+/* Dot indicators */
+.splash__dots {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+
+.splash__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.splash__dot--active {
+  background: #FDBA12;
+  transform: scale(1.3);
+}
+
+/* Exit animation (fade out upward) */
+.splash--exiting {
+  animation: splash-exit 0.5s ease forwards;
+}
+
+@keyframes splash-exit {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.03); }
+}
+
+/* Responsive */
+@media (max-width: 540px) {
+  .splash__logo      { width: 200px; }
+  .splash__tap-label { font-size: 1rem; }
+}
+
+/* Idle warning banner  */
+#idle-warning {
+  position: fixed;
+  bottom: 70px;          /* sits just above the tab bar */
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 5000;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+#idle-warning.idle-warning--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.idle-warning__inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #008D43;
+  border: 1px solid #008D43;
+  border-radius: 12px;
+  padding: 12px 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
+
+.idle-warning__icon {
+  font-size: 1.2rem;
+}
+
+.idle-warning__msg {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: #fff;
+}
+
+.idle-warning__msg strong {
+  color: #FDBA12;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+}
+
+.idle-warning__btn {
+  background: #FDBA12;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.idle-warning__btn:hover {
+  background: #ffd07a;
+}
+
+/* Receipt countdown badge */
+#receipt-countdown-badge {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #666;
+  padding: 0 0 10px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+#receipt-countdown-badge strong {
+  font-family: 'JetBrains Mono', monospace;
+  color: #008D43;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 540px) {
+  .idle-warning__inner {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    padding: 10px 14px;
+  }
+  .idle-warning__msg { font-size: 0.82rem; }
+}
+
+/* Payment screen (full centered view) */
+#cart-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#cart-view .cart-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+
+#payment-view {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-screen {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 20px;
+}
+
+.payment-screen .discount-section {
+  margin-top: 12px;
+}
+
+.payment-screen .bill {
+  margin-top: 8px;
+}
+
+.payment-screen .payment {
+  margin-top: 8px;
+}
+
+.payment-screen .btn--checkout {
+  margin-top: 12px;
+}

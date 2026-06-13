@@ -1,0 +1,106 @@
+/* Reset & Custom Properties */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:           #ffffff;
+  --surface:      #ffffff;
+  --surface-2:    #c2b5b5;
+  --surface-3:    #2a2a2a;
+  --border:       #333333;
+
+  --accent:       #f5a623;
+  --accent-dim:   #c4831a;
+  --accent-light: #ffd07a;
+
+  --green:        #4ade80;
+  --red:          #f87171;
+  --blue:         #60a5fa;
+
+  --text-primary:   #000000;
+  --text-secondary: #008D43;
+  --text-muted:     #666666;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --radius:    10px;
+  --radius-lg: 16px;
+
+  --shadow: 0 4px 24px rgba(0,0,0,0.5);
+
+  --header-h: 65px;
+}
+
+/* Base */
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 2.4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  background: var(--surface);
+  margin-top: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-h);
+  z-index: 100;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__time {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: black;
+  background: white;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+}
+
+.img-head-logo {
+  display: flex;
+  height: 200px;
+  margin-bottom: 10px;
+  margin-top: -7px;
+  margin-left: -45px;
+  padding: 5px;
+}
+
+/* Responsive */
+@media (max-width: 540px) {
+  .header { padding: 12px 16px; }
+  .header__time { display: none; }
+  .menu-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; padding: 12px; }
+  .panel__header { padding: 12px 14px; }
+  .category-tabs { gap: 4px; }
+}
