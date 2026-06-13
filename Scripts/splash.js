@@ -1,7 +1,7 @@
 (function () {
 //   // ── Config ─────────────────────────────────────────────────
   const SLIDE_INTERVAL      = 4000;   // ms between slide transitions
-  const IDLE_WARN           = 10000;  // ms of inactivity before warning (15 s)
+  const IDLE_WARN           = 20000;  // ms of inactivity before warning (20 s)
   const IDLE_WARN_DURATION  = 10000;  // ms warning stays before returning to splash
   const RECEIPT_TIMEOUT     = 10000;  // ms before receipt auto-dismisses (10 s)
 
